@@ -79,18 +79,18 @@ FROM PRODUCT;
 
 d)Write a command to extract 3 characters from the 2nd position of supplier column.
 -ANS-
-SELECT SUBSTRING(Supplier, 2, 3) AS ExtractedChars 
+SELECT SUBSTRING(Supplier, 2, 3) AS Extracted_Chars 
 FROM PRODUCT;
 
 e)Display average price of each supplier
 -ANS-
-SELECT Supplier, AVG(Price) AS AveragePrice F
-ROM PRODUCT 
+SELECT Supplier, AVG(Price) AS Average_Price 
+FROM PRODUCT 
 GROUP BY Supplier;
 
 f)Display average price of each supplier whose supplier name is ‘Samsung’.
 -ANS-
-SELECT Supplier, AVG(Price) AS AveragePrice 
+SELECT Supplier, AVG(Price) AS Average_Price 
 FROM PRODUCT
 WHERE Supplier = 'Samsung' 
 GROUP BY Supplier;
