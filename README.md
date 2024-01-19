@@ -98,5 +98,116 @@ GROUP BY Supplier;
            SET-2
            
 
+1) (a) Write a program to create a DataFrame Quarterly Sales where each row contains the Quarterly Sales of TV, Fridge and AC [4 M]
+   
+	TV	FRIDGE	AC
+QTR1	200000	300000	240000
+QTR2	230000	200000	153000
+QTR3	210000	290000	245000
+QTR4	240000	210000	170000
+-ANS-
+import pandas as pd
+data = {'TV': [200000, 230000, 210000, 240000],
+        'FRIDGE': [300000, 200000, 290000, 2100000],
+        'AC': [240000, 153000, 245000, 170000]}
+index = ['QTR1', 'QTR2', 'QTR3', 'QTR4']
+df = pd.DataFrame(data, index=index)
+print(df)
 
+b) Given datasets population of India and Pakistan in the given years. Show the population of India and Pakistan using line chart with title and labels of both axis.
+[4 M]
+YEAR	1960	1970	1980	1990	2000	2010
+Population of Pakistan 44.91	58.09	78.07	107.7	138.5	170.6
+Population of India	449.48	553.57	696.783	870.133	1000.4	1309.1
+-ANS-
+import matplotlib.pyplot as plt
+years = [1960, 1970, 1980, 1990, 2000, 2010]
+population_pakistan = [44.91, 58.09, 78.07, 107.7, 138.5, 170.6]
+population_india = [449.48, 553.57, 696.783, 870.133, 1000.4, 1309.1]
+plt.plot(years, population_pakistan, label='Population of Pakistan')
+plt.plot(years, population_india, label='Population of India')
+plt.title('Population of India and Pakistan (1960-2010)')
+plt.xlabel('Year')
+plt.ylabel('Population (in million)')
+plt.legend()
+plt.show()
 
+2. Write Mysql queries for the HOSPITAL table given below:	[7 M]
+
+PNo	Name	Age	Department	Dateofadm	Charges	Gender
+1	Arprit	62	Surgery	2008-01-12	300	M
+2	Zarina	22	ENT	2007-12-12	250	F
+3	Kareem	32	Orthopaedic	2008-02-19	200	M
+4	Arun	12	Surgery	2008-01-11	300	M
+5	Zubin	30	ENT	2008-01-12	250	M
+6	Ketaki	16	ENT	2008-02-24	250	M
+7	Ankita	29	Cardiology	2008-02-20	800	F
+8	Zareen	45	Gynaecology	2008-02-22	300	F
+9	Kush	19	Cardiology	2008-01-13	800	M
+10	Shilpa	23	Nuclear Medicine	2008-01-20	400	F
+
+a)Write mysql command to create hospital table and insert records into it.
+-ANS-
+-- Create the HOSPITAL table
+CREATE TABLE HOSPITAL (
+    PNo INT PRIMARY KEY,
+    Name VARCHAR(255),
+    Age INT,
+    Department VARCHAR(255),
+    Dateofadm DATE,
+    Charges INT,
+    Gender CHAR(1)
+);
+
+INSERT INTO HOSPITAL (PNo, Name, Age, Department, Dateofadm, Charges, Gender)
+VALUES
+(1, 'Arprit', 62, 'Surgery', '2008-01-12', 300, 'M'),
+(2, 'Zarina', 22, 'ENT', '2007-12-12', 250, 'F'),
+(3, 'Kareem', 32, 'Orthopaedic', '2008-02-19', 200, 'M'),
+(4, 'Arun', 12, 'Surgery', '2008-01-11', 300, 'M'),
+(5, 'Zubin', 30, 'ENT', '2008-01-12', 250, 'M'),
+(6, 'Ketaki', 16, 'ENT', '2008-02-24', 250, 'M'),
+(7, 'Ankita', 29, 'Cardiology', '2008-02-20', 800, 'F'),
+(8, 'Zareen', 45, 'Gynaecology', '2008-02-22', 300, 'F'),
+(9, 'Kush', 19, 'Cardiology', '2008-01-13', 800, 'M'),
+(10, 'Shilpa', 23, 'Nuclear Medicine', '2008-01-20', 400, 'F');
+
+b) To list names of all patients with their date of admission in ascending order
+-ANS-
+SELECT Name, Dateofadm 
+FROM HOSPITAL 
+ORDER BY Dateofadm ASC;
+
+c) Display the department wise total charges whose maximum charges more than equal to 300
+-ANS- 
+SELECT Department, SUM(Charges) AS TotalCharges
+FROM HOSPITAL
+GROUP BY Department
+HAVING MAX(Charges) >= 300;
+
+d) Display the position of ‘a’ in the name column of hospital table.
+-ANS-
+SELECT Name, POSITION('a' IN Name) AS PositionOfA
+FROM HOSPITAL;
+
+e) Write a command to extract 3 characters from 1st position of Department column.
+-ANS-
+SELECT SUBSTRING(Department, 1, 3) AS ExtractedChars 
+FROM HOSPITAL;
+
+f) Display gender wise total charges
+SELECT Gender, SUM(Charges) AS TotalCharges 
+FROM HOSPITAL 
+GROUP BY Gender;
+
+                 SET-3
+1.	(a) In an online contest, two 2-player teams point in 4 rounds are stored in two DataFrames as shown below:	[4 M]
+Team 1’s points(df1)	Team 2’s points(df2)
+
+	P1	P2		P1	P2
+1	700	490	1	1100	1400
+2	975	460	2	1275	1260
+3	970	570	3	1270	1500
+4	900	590	4	1400	1190
+
+Write a program to calculate total points earned by both the teams in each round.
