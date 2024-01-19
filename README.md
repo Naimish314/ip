@@ -211,3 +211,83 @@ Team 1’s points(df1)	Team 2’s points(df2)
 4	900	590	4	1400	1190
 
 Write a program to calculate total points earned by both the teams in each round.
+-ANS-
+import pandas as pd
+df1 = pd.DataFrame({'P1': [700, 975, 970, 900], 'Ps': [490, 460, 570, 590]})
+df2 = pd.DataFrame({'P1': [1100, 1275, 1270, 1400], 'P2': [1400, 1260, 1500, 1190]})
+total_points = df1 + df2
+print(total_points)
+
+(b) Draw the Bar graph based on the production of wheat in different years. [4 M]
+Year	2000	2002	2004	2006	2008	2010	2012	2014	2016	2018
+Production	4	6	7	15	24	2	19	5	16	4
+-ANS-
+import matplotlib.pyplot as plt
+years = [2000, 2002, 2004, 2006, 2008, 2010, 2012, 2014, 2016, 2018]
+production = [4, 6, 7, 15, 24, 2, 19, 5, 16, 4]
+plt.bar(years, production, color='skyblue')
+plt.xlabel('Year')
+plt.ylabel('Production (in millions)')
+plt.title('Wheat Production in Different Years')
+plt.xticks(years)
+plt.tight_layout()
+plt.show()
+
+2. Write SQL commands for SPORTS table given below	[7 M]
+STUDENTNO CLASS	NAME GAME1 GRADE1	GAME2	GRADE2
+10 7 SAMEER CRICKET B SWIMMING	A
+11 8 SUJIT TENNIS A SKATING C
+12 7 KAMAL SWIMMING B FOOTBALL B
+13 7 VEENA TENNIS C TENNIS A
+14 9 ARCHANA BASKETBALL A CRICKET	A
+15 10 ARPIT CRICKET A ATHLETICS	C
+a)	Write mysql command to create sports table and enter records into it.
+-ANS-
+CREATE TABLE SPORTS (
+    STUDENTNO INT,
+    CLASS INT,
+    NAME VARCHAR(50),
+    GAME1 VARCHAR(50),
+    GRADE1 CHAR,
+    GAME2 VARCHAR(50),
+    GRADE2 CHAR
+);
+
+INSERT INTO SPORTS VALUES
+(10, 7, 'SAMEER', 'CRICKET', 'B', 'SWIMMING', 'A'),
+(11, 8, 'SUJIT', 'TENNIS', 'A', 'SKATING', 'C'),
+(12, 7, 'KAMAL', 'SWIMMING', 'B', 'FOOTBALL', 'B'),
+(13, 7, 'VEENA', 'TENNIS', 'C', 'TENNIS', 'A'),
+(14, 9, 'ARCHANA', 'BASKETBALL', 'A', 'CRICKET', 'A'),
+(15, 10, 'ARPIT', 'CRICKET', 'A', 'ATHLETICS', 'C');
+
+
+b) Display the names of the students who have grade ‘C’ in either Game1 or Game2 or both
+-ANS-
+SELECT NAME 
+FROM SPORTS 
+WHERE GRADE1 = 'C' OR GRADE2 = 'C';
+
+c) Write a command to concatenate name and game1 columns of sports table
+-ANS-
+SELECT CONCAT(NAME, ' - ', GAME1) AS Concatenated_Column 
+FROM SPORTS;
+
+d) Display the position of ‘e’ in the name column of sports.
+-ANS-
+SELECT POSITION('e' IN NAME) AS Position_Of_E 
+FROM SPORTS;
+
+
+e) Display maximum studentno class wise.
+-ANS-
+SELECT CLASS, MAX(STUDENTNO) AS Max_Student_No 
+FROM SPORTS 
+GROUP BY CLASS;
+
+f)	Display maximum studentno class wise whose studentno is more than 7.
+-ANS-
+SELECT CLASS, MAX(STUDENTNO) AS Max_StudentNo 
+FROM SPORTS 
+WHERE STUDENTNO > 7 
+GROUP BY CLASS;
