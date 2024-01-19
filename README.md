@@ -33,3 +33,70 @@ plt.legend()
 plt.grid(True)
 plt.show()
 
+2) 2.	Write mysql queries for the PRODUCT table given below:	[7 M]
+
+No	Name	Price	Supplier	Stock
+1	Motherboard	7000	Intel	20
+2	Keyboard	1000	TVSE	70
+3	Mouse	500	Logitech	60
+4	Soundcard	600 Samsung	50
+5	Speaker	600 Samsung	25
+6	Monitor	3000 Philips	22
+7	CD-ROM	2800	Creative	32
+8	Printer	7900	HP	10
+
+a)	Write mysql command to create the table product and insert records into it.
+-ANS- 
+-- Create the PRODUCT table
+CREATE TABLE PRODUCT (
+    No INT PRIMARY KEY,
+    Name VARCHAR(255),
+    Price INT,
+    Supplier VARCHAR(255),
+    Stock INT
+);
+INSERT INTO PRODUCT (No, Name, Price, Supplier, Stock)
+VALUES
+(1, 'Motherboard', 7000, 'Intel', 20),
+(2, 'Keyboard', 1000, 'TVSE', 70),
+(3, 'Mouse', 500, 'Logitech', 60),
+(4, 'Soundcard', 600, 'Samsung', 50),
+(5, 'Speaker', 600, 'Samsung', 25),
+(6, 'Monitor', 3000, 'Philips', 22),
+(7, 'CD-ROM', 2800, 'Creative', 32),
+(8, 'Printer', 7900, 'HP', 10);
+
+b)Display the name and price from the table product in descending order of their stock.
+-ANS-
+SELECT Name, Price 
+FROM PRODUCT 
+ORDER BY Stock DESC;
+
+c)Write a command to display the position of ‘a’ in name column.
+-ANS-
+SELECT POSITION('a' IN Name) AS Position_of_a
+FROM PRODUCT;
+
+d)Write a command to extract 3 characters from the 2nd position of supplier column.
+-ANS-
+SELECT SUBSTRING(Supplier, 2, 3) AS ExtractedChars 
+FROM PRODUCT;
+
+e)Display average price of each supplier
+-ANS-
+SELECT Supplier, AVG(Price) AS AveragePrice F
+ROM PRODUCT 
+GROUP BY Supplier;
+
+f)Display average price of each supplier whose supplier name is ‘Samsung’.
+-ANS-
+SELECT Supplier, AVG(Price) AS AveragePrice 
+FROM PRODUCT
+WHERE Supplier = 'Samsung' 
+GROUP BY Supplier;
+
+           SET-2
+           
+
+
+
